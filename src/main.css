@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+:root {
+    font-size: 10px;
+    --primary-color: rgb(213,209,199);
+    --secondary-color: rgb(232,231,224);
+    --selected-color: rgb(6,38,108);
+    --border-light-color: rgb(243,239,229);
+    --border-dark-color: rgb(148,144,136);
+}
+::-webkit-scrollbar {
+    display: none;
+}
