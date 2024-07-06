@@ -23,7 +23,7 @@
         <ol class="content-area">
             <li @dblclick="modifyBookMark(item)" @click="selectedIndex=index" :class="selectedIndex==index?'selected':''"
                 v-for="item,index in bookMarkArr" :key="item.id">
-                <p>{{ `[${index + 1}]《${item.name}》-> 第${item.page}页` }}</p>
+                <p>{{ `[${index + 1}]《${item.name}》-> ${item.page}` }}</p>
                 <p>{{ '备注：' + item.description }}</p>
             </li>
         </ol>
@@ -36,11 +36,11 @@
                 </div>
                 <div>
                     <span class="input-text">页码</span>
-                    <input class="win2000-1" type="text" placeholder="请输入页码" v-model.number="pageText">
+                    <input class="win2000-1" type="text" placeholder="请输入页码" v-model="pageText">
                 </div>
                 <div>
                     <span class="input-text">备注</span>
-                    <input class="win2000-1" type="text" placeholder="请输入备注" v-model="descriptionText">
+                    <input class="win2000-1" type="text" placeholder="请输入备注" v-model="descriptionText" @keydown.enter="showAddButton?confirmAddBookMark():confirmModifyBookMark()">
                 </div>
                 <div class="footbar">
                     <div class="win2000-1 win2000-2" v-if="showAddButton" @click="confirmAddBookMark()">新建</div>
@@ -85,7 +85,7 @@ onMounted(async ()=>{
 // 定义书签接口
 interface BookMark {
     name: string,
-    page: number
+    page: string
     description: string,
     created_at: string,
     updated_at: string,
@@ -123,7 +123,7 @@ const confirmAddBookMark = async () => {
     const name = nameText.value
     const page = pageText.value
     const description = descriptionText.value
-    if (name === '' || description === '' || typeof page === 'string' ) {
+    if (name === '' || page === '' ) {
         showDeleteButton.value = false
         audio.value?.play()
         showDialogSubwindow.value = true
@@ -138,7 +138,7 @@ const confirmModifyBookMark = async () => {
     const name = nameText.value
     const page = pageText.value
     const description = descriptionText.value
-    if (name === '' || description === '' || typeof page === 'string' ) {
+    if (name === '' || page === '' ) {
         showDeleteButton.value = false
         audio.value?.play()
         showDialogSubwindow.value = true

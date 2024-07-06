@@ -63,6 +63,7 @@ async function cutText() {
         const temp = selectelement.selectionStart
         selectelement.value = selectelement.value.substring(0, selectelement.selectionStart) + selectelement.value.substring(selectelement.selectionEnd)
         selectelement.selectionStart = selectelement.selectionEnd = temp
+        selectelement.dispatchEvent(new Event('input'))
     }
 }
 
@@ -71,6 +72,7 @@ async function pasteText() {
     if (selectelement.selectionStart!== null && selectelement.selectionEnd!== null) {
         const text = await readText()
         selectelement.value = selectelement.value.substring(0, selectelement.selectionStart) + text + selectelement.value.substring(selectelement.selectionEnd)
+        selectelement.dispatchEvent(new Event('input'))
     }
 }
 
@@ -88,6 +90,7 @@ function deleteText() {
         const temp = selectelement.selectionStart
         selectelement.value = selectelement.value.substring(0, selectelement.selectionStart) + selectelement.value.substring(selectelement.selectionEnd)
         selectelement.selectionStart = selectelement.selectionEnd = temp
+        selectelement.dispatchEvent(new Event('input'))
     }
 }
 

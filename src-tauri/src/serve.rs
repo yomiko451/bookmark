@@ -12,14 +12,14 @@ static ID: AtomicI32 = AtomicI32::new(1);
 pub struct BookMark {
     id: String,
     name: String,
-    page: i32,
+    page: String,
     description: String,
     created_at: String,
     updated_at: String,
 }
 
 impl BookMark {
-    pub fn build(name: String, page: i32, description: String) -> Self {
+    pub fn build(name: String, page: String, description: String) -> Self {
         let created_at = chrono::Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
         let id = ID.fetch_add(1, Ordering::SeqCst);
         BookMark {
@@ -78,7 +78,7 @@ pub fn init(app_handle: AppHandle) -> Vec<BookMark> {
 pub fn add_bookmark(
     app_handle: AppHandle,
     name: String,
-    page: i32,
+    page: String,
     description: String,
 ) -> BookMark {
     let new_bookmark = BookMark::build(name, page, description);
@@ -97,7 +97,7 @@ pub fn add_bookmark(
 pub fn modify_bookmark(
     app_handle: AppHandle,
     name: String,
-    page: i32,
+    page: String,
     description: String,
     id: String,
 ) -> BookMark {
@@ -159,7 +159,7 @@ mod tests {
 
     #[test]
     fn test_bookmark_new() {
-        let bm = BookMark::build("test".to_string(), 8, "test".to_string());
+        let bm = BookMark::build("test".to_string(), "8".to_string(), "test".to_string());
         assert_eq!(bm.id, "001");
         assert_eq!(bm.name, "test");
         assert_eq!(bm.description, "test");
